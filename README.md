@@ -1,3 +1,3 @@
-# Web3-Model
+# web3-model
 
 Some Models for Web3

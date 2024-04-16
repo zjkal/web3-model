@@ -1,8 +1,8 @@
+from eth_account.signers.local import LocalAccount
 from eth_typing import ChecksumAddress
 from web3 import Web3
 
 from web3_model.contract import Contract
-from web3_model.wallet import Wallet
 
 
 class ERC20(Contract):
@@ -20,17 +20,17 @@ class ERC20(Contract):
         """
         super().__init__(w3, address, abi_path)
 
-    def approve(self, wallet: Wallet, contract: ChecksumAddress, amount: int = 2 ** 256 - 1):
+    def approve(self, wallet: LocalAccount, contract: ChecksumAddress, amount: int = 2 ** 256 - 1):
         """
         发起授权
         Args:
-            wallet: 钱包对象
+            wallet: 本地账户对象
             contract: 授权的合约
             amount: 授权金额(默认为最大金额)
         Returns:
             授权结果的Hash
         """
-        return self.call_by_tx(wallet, "approve", contract, amount)
+        return self.call_by_tx(wallet, "approve", [contract, amount])
 
     def allowance(self, wallet: ChecksumAddress, contract: ChecksumAddress) -> int:
         """
@@ -41,7 +41,7 @@ class ERC20(Contract):
         Returns:
             授权金额
         """
-        return self.call("allowance", wallet, contract)
+        return self.call("allowance", [wallet, contract])
 
     def balance_of(self, wallet: ChecksumAddress) -> int:
         """
@@ -51,16 +51,17 @@ class ERC20(Contract):
         Returns:
             余额
         """
-        return self.call("balanceOf", wallet)
+        return self.call("balanceOf", [wallet])
 
-    def transfer(self, wallet: Wallet, to: ChecksumAddress, amount: int):
+    def transfer(self, wallet: LocalAccount, to: ChecksumAddress, amount: int, gas: int = 0):
         """
         发起转账
         Args:
-            wallet: 钱包对象
+            wallet: 本地账户对象
             to: 接收地址
             amount: 转账金额
+            gas: gas
         Returns:
             转账结果的Hash
         """
-        return self.call_by_tx(wallet, "transfer", to, amount)
+        return self.call_by_tx(wallet, "transfer", [to, amount], gas=gas)

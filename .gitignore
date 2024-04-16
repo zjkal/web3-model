@@ -3,3 +3,4 @@
 /.github/
 dist
 Web3_Model.egg-info
+.pypirc

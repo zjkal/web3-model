@@ -12,13 +12,13 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'Web3-Model'
+NAME = 'web3-model'
 DESCRIPTION = 'Some Models for Web3'
 URL = 'https://github.com/zjkal/web3-model'
 EMAIL = 'zjkal@qq.com'
 AUTHOR = 'zjkal'
 REQUIRES_PYTHON = '>=3.7.0'
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
